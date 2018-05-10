@@ -1,0 +1,55 @@
+.my-controller {
+  border: 1px solid #fcc;
+  padding: 5px;
+  margin: 3px;
+}
+.my-controller small {
+  color: #c99;
+}
+.other-controller {
+  border: 1px solid #ccf;
+  padding: 5px;
+  margin: 3px;
+}
+.other-controller small {
+  color: #99c;
+}
+.third-controller {
+  border: 1px solid #cfc;
+  padding: 5px;
+  margin: 3px;
+}
+.third-controller small {
+  color: #9c9;
+}
+
+
+
+
+ #classesnav {	
+	position:absolute;
+	}
+#classesnav ul {
+	list-style:none;
+	display:block;
+	}
+#classesnav ul li {
+	padding:10px 3px 10px 3px;
+	background-color:#FFFFFF;
+	display:inline:block;
+	border-radius:5px;
+    margin-bottom: 10px;	
+}
+
+new Css
+
+
+
+#classesnav ul li a {
+	display:block;
+
+	
+	 
+	 
+	 
+	 

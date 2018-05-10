@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+   http://www.springframework.org/schema/beans  
+      
+   http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+   http://www.springframework.org/schema/context 
+   http://www.springframework.org/schema/context/spring-context-4.1.xsd
+   http://www.springframework.org/schema/mvc
+   http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+   http://www.springframework.org/schema/tx 
+   http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+   http://www.springframework.org/schema/security
+   http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+
+	<security:global-method-security pre-post-annotations="enabled" />
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+ 		<!-- <security:password-encoder ref="encoder" /> -->
+ 		<security:jdbc-user-service data-source-ref="dataSource"
+		  users-by-username-query=
+		    "select username,password, enabled from users where username=?"
+		  authorities-by-username-query=
+		    "select username, role from authorities where username=?" />
+			<!-- <security:user-service>
+				<security:user name="alpha" password="pass1"
+					authorities="ROLE_USER" />
+				<security:user name="beta" password="pass2"
+					authorities="ROLE_USER, ROLE_ADMIN" />
+			</security:user-service> -->
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<security:http auto-config="true">
+		<security:session-management invalid-session-url="/login"></security:session-management>
+		<security:form-login login-page="/login" default-target-url="/welcome" always-use-default-target="true"
+			login-processing-url="/j_spring_security_check"
+			authentication-failure-url="/login?error" 
+			username-parameter="j_username"
+			password-parameter="j_password"/>
+		<security:logout invalidate-session="true" logout-success-url="/login" delete-cookies="JSESSIONID"/>
+		<security:intercept-url pattern="/login"
+			access="permitAll" />
+		<security:intercept-url pattern="/welcome"
+			access="hasRole('ROLE_USER')" />
+			<security:csrf disabled="true"/>
+			
+		<security:logout logout-success-url="/logout" />
+	</security:http>
+
+<!--  <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<beans:constructor-arg name="strength" value="10" />
+	</beans:bean>  -->
+		
+</beans:beans>
